@@ -30,7 +30,7 @@ then he can use this website to ask for help.
 - Bootstrap
 - Gulp
 
-## Functions that works so far:
+## Functions that work:
 1. user can log in with facebook
 2. user can create new project and introduce thier project to their friend
 3. every project can be updated information including deleting project
