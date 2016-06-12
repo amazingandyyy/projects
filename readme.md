@@ -1,7 +1,7 @@
-# projects website
+#projects website
 author is (amazingandyyy){amazingandyyy@gmail.com}
 
-##This is a website the funciont let developers post thier project and ask for collabarators, finicial supports and even supplies including food, or other devices. 
+#####This is a website that lets developers post their projects and ask for collabarators, finicial supports and even supplies including food, or other devices. :)
 
 ###USING CASE 1: 
 A developer, buid a iOS app, and she can ask for
@@ -20,8 +20,7 @@ A front end developer, he has a idea and already have UI design and workflow don
 then he can use this website to ask for help.
 
 
-
-##Technics:
+##Technics applied:
 - Node
 - Express
 - Mongoose
@@ -31,7 +30,7 @@ then he can use this website to ask for help.
 - Bootstrap
 - Gulp
 
-## Functions:
+## Functions that works so far:
 1. user can log in with facebook
 2. user can create new project and introduce thier project to their friend
 3. every project can be updated information including deleting project
