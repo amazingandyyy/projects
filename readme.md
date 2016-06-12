@@ -11,7 +11,7 @@ A developer, buid a iOS app, and she can ask for
   - ask for a Myo arm band and Oculus for VR funcions
 then she can use this website to ask for help.
 
-###USING 2: 
+###USING CASE 2: 
 A front end developer, he has a idea and already have UI design and workflow done
   - 10 users to be fill out a survey about the demands of the idea
   - a backend guy to have it work and link to a database
@@ -41,4 +41,3 @@ then he can use this website to ask for help.
 
 Opnions? pls comment on
 #livecoding URL: https://www.livecoding.tv/amazingandyyy/
-
