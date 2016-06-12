@@ -1,0 +1,39 @@
+@import "../myvariables";
+
+.modal-a {
+    height: 100vh;
+    width: 100%;
+    background: rgba(0,0,0,0.4);
+    position: absolute;
+    z-index: 2000;
+    top: 0;
+    padding-top: 40px;
+
+    .card {
+        display: block;
+        background: white;
+        border: 1px solid;
+        border-color: #e5e6e9 #dfe0e4 #d0d1d5;
+        border-radius: 3px;
+        box-shadow: 0 2px 26px rgba(0, 0, 0, .3), 0 0 0 1px rgba(0, 0, 0, .1);
+        padding: 30px 20px;
+
+        .hero {
+            background: $fb-blue-color;
+            height: 100%;
+        }
+    }
+    .card.large-margin {
+        padding: 200px 20px;
+    }
+    form small {
+        line-height: 1.05em;
+        margin-top: 10px;
+        display: inline-block;
+    }
+    .close {
+        position: absolute;
+        top: 30px;
+        right: 30px;
+    }
+}

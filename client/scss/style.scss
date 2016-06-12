@@ -1,0 +1,13 @@
+@import "myvariables";
+@import "override";
+
+@import "global";
+
+@import "./bootstrap-sass/bootstrap.scss";
+
+@import "./partial/navbar";
+@import "./partial/home";
+@import "./partial/modal-a";
+@import "./partial/ppage";
+@import "./partial/projectDetails";
+@import "./partial/setting-page";

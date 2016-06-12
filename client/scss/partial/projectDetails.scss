@@ -1,0 +1,65 @@
+@import "../myvariables";
+@import "./patternbolt.scss";
+.projectDetails-page {
+    .jumbotron {
+        max-height: 300px;
+        padding: 20px 5px;
+        @include pb( 'candy-b', 50px, $brand-primary, #000, 0.04, 'none');
+        color: white;
+        text-align: left;
+    }
+    .hero {
+        h1 small {
+            font-size: 0.75em;
+            line-height: 10px;
+            opacity: 0.8;
+        }
+    }
+    .request {
+        h5 {
+            font-weight: 900;
+            font-size: 0.8;
+            opacity: 0.5;
+        }
+        .choise-container {
+            margin: 25px 10px;
+
+            .choice {
+                color: #ddd;
+                margin-left: 0px;
+                margin: 0.4rem;
+                border: 2px solid #ddd;
+                padding: 15px 30px;
+                cursor: pointer;
+                border-radius: 1px;
+                user-select: none;
+            }
+            .choice:hover {
+                border: 2px solid $light-blue-color;
+                color: $light-blue-color;
+            }
+            .choice:active {
+                background: $light-blue-color;
+                color: white;
+            }
+            .choice.active {
+                border: 2px solid $light-blue-color;
+                color: white;
+                background: $light-blue-color;
+                transform: scale(1);
+                transition: 0s all ease-in-out;
+            }
+            .choice.active:hover {
+                background: darken($light-blue-color, 5%);
+                border: 2px solid darken($light-blue-color, 5%);
+            }
+            .choice.active:active {
+                background: darken($light-blue-color, 1%);
+                border: 2px solid darken($light-blue-color, 1%);
+            }
+            .btn-block {
+                border-radius: 0px;
+            }
+        }
+    }
+}

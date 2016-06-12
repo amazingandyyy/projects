@@ -1,0 +1,34 @@
+@import "../myvariables";
+@import "./patternbolt";
+@import "./keyframe";
+@import "../myvariables";
+
+.home-page {
+    background: $brand-primary;
+    height: 93.8vh;
+    width: 100%;
+    @include pb( 'candy-b', 50px, $brand-primary, #000, 0.1, 'none');
+    color: white;
+    padding-top: 200px;
+    text-align: center;
+
+    .icon-genius {
+        font-size: 8rem;
+        margin-bottom: 20px;
+    }
+    .logo-outline {
+        border-right: 22px solid;
+        padding: 0px 10px 0px 0px;
+        border-color: $light-blue-color;
+        animation: blink-logo 1.5s infinite;
+    }
+    .thin {
+        font-weight: 100;
+    }
+}
+
+@media (max-width: 767px) {
+    .home-page {
+        padding-top: 150px;
+    }
+}

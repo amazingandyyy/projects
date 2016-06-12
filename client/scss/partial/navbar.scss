@@ -1,0 +1,71 @@
+@import "../myvariables";
+.navbar {
+    border: 1px solid #ddd;
+
+    .navbar-brand {
+        float: none;
+        color: $fb-blue-color;
+        span {
+            font-weight: 100;
+        }
+    }
+    .logo-outline {
+        border-right: 12px solid;
+        padding: 0 8px 0 0;
+        border-color: $light-blue-color;
+    }
+    .login {
+        font-size: 0.8em;
+        font-weight: 500;
+        letter-spacing: 0.2px;
+        margin-top: 5px;
+    }
+    .profile {
+        font-size: 0.8em;
+        font-weight: 500;
+        letter-spacing: 0.2px;
+        margin-top: 5px;
+        position: relative;
+        width: 29px;
+        background-size: 27px;
+        background-position: right top;
+        background-repeat: no-repeat;
+    }
+    .profile:hover{
+        background-color: white;
+    }
+    .disabled.graydout {
+        cursor: default;
+        text-align: center;
+    }
+    .search {
+        max-height: 29px;
+        margin-top: 5px;
+    }
+    .avatar {
+        /* make it responsive */
+        width: 50px;
+        height: 50px;
+        display: block;
+        /* div height to be the same as width*/
+        /* make it a cirkle */
+        border-radius: 50%;
+        box-shadow: 0 0 0 1px rgba(0,0,0,.14);
+        // border: 1px solid rgba(0,0,0,.15);
+        /* Centering on image`s center*/
+        background-position-y: center;
+        background-position-x: center;
+        background-repeat: no-repeat;
+        /* it makes the clue thing, takes smaller dimention to fill div */
+        background-size: cover;
+        /* it is optional, for making this div centered in parent*/
+        margin: 10px auto;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+    }
+    .dropdown-item {
+        outline: none;
+    }
+}
