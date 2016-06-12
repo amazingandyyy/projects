@@ -1,5 +1,5 @@
 #projects website
-author is (amazingandyyy){amazingandyyy@gmail.com}
+author is (amazingandyyy){http://amazingandyyy.github.io/}
 
 #####This is a website that lets developers post their projects and ask for collabarators, finicial supports and even supplies including food, or other devices. :)
 
