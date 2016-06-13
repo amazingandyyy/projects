@@ -26,7 +26,7 @@
             .icon-link {
                 display: inline-block;
                 margin: auto;
-                padding-top: 0px;
+                padding-top: 0;
                 height: 30px;
                 width: 30px;
                 border-radius: 50px;
@@ -51,7 +51,38 @@
                 background: $brand-primary;
                 color: white;
                 transform: scale(0.95);
-                transition: .1s all ease-in-out;
+                transition: 0.1s all ease-in-out;
+            }
+            .followBtn.btn-primary-outline {
+                transition: 0.1s all ease-in-out;
+                padding-right: 20px;
+                padding-left: 20px;
+            }
+            .followBtn.btn-primary-outline:active {
+                transform: scale(0.975);
+            }
+            .followBtn.btn-primary-outline:active,
+            .followBtn.btn-primary-outline:focus,
+            .followBtn.btn-primary-outline:hover {
+                background: white;
+                color: $brand-primary;
+            }
+            .followBtn.btn-primary-outline:hover {
+                opacity: 0.8;
+                transition: 0.2s all ease-in-out;
+            }
+            .followBtn.active {
+                background: $brand-primary;
+                color: white;
+            }
+            .followBtn.active:focus,
+            .followBtn.active:hover {
+                background: darken($brand-primary, 10%);
+                color: white;
+            }
+            .followBtn.active:active {
+                background: lighten($brand-primary, 10%);
+                color: white;
             }
         }
         .ache {

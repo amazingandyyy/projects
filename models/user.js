@@ -164,82 +164,83 @@ userSchema.statics.eventFollow = function(data, cb) {
     var followerId = data.currentUser;
     var followingReceiverId = data.followTarget;
     // workflow:
-        // 1 - followTarget the target and push the currentUser as follower
-            // 2 - find the follower and push the followTarget._id to the followingsList
+    // 1 - followTarget the target and push the currentUser as follower
+    // 2 - find the follower and push the followTarget._id to the followingsList
     this.findOne({
         _id: followingReceiverId
     }, (err, user) => {
         if (err || !user) return cb(err);
-        console.log('target\'s followers list: ', user.followersList);
-        if(user.followersList.indexOf(followerId) == -1){
+        // console.log('target\'s followers list: ', user.followersList);
+        if (user.followersList.indexOf(followerId) == -1) {
             // the folower does not exist
             console.log('Trigger following event!');
             user.followersList.push(followerId)
             user.save((err, user) => {
                 // save the followingReceiver with a updated followersList
-               if (err) return cb(err)
-               console.log('followingReceiver with a updated followersList: ', user);
-               var updatedfollowingReceiver = user;
-               // next step: after successfully save followingReceiver
-               this.findOne({
-                   _id: followerId
-               }, (err, user) => {
-                   if (err || !user) return cb(err)
-                   console.log('follower before following: ', user);
-                   var followReceiverNotExisted = user.followingsList.indexOf(followingReceiverId) !== -1;
-                   if(followReceiverNotExisted){
-                       // update follower's followingsList
-                       user.followingsList.push(followingReceiverId);
-                       // save the follower with a updated followingsList
-                       user.save((err, follower) => {
-                          if (err || !follower) return cb(err)
-                        // successfully save the follower with a updated followingsList
-                          console.log('follower with a updated followingsList: ', follower)
-                          var resData = {
-                              eventType: 'follow',
-                              followingReceiver: updatedfollowingReceiver,
-                              follower: follower
-                          }
-                          console.log('following event participants: ', resData);
-                          cb(null, resData)
-                      })
-                  }
-               })
-           })
-       }else if(user.followersList.indexOf(followerId) !== -1){
-           // the folower must already exist
-           var unfollowerId = data.currentUser
-           var unfollowingReceiverId = data.followTarget
-           console.log('Trigger unfollowing event!')
+                if (err) return cb(err)
+                    //    console.log('followingReceiver with a updated followersList: ', user);
+                var updatedfollowingReceiver = user;
+                // next step: after successfully save followingReceiver
+                this.findOne({
+                    _id: followerId
+                }, (err, user) => {
+                    if (err || !user) return cb(err)
+                    console.log('follower before following: ', user);
+                    var follerReveiverNotExisted = user.followingsList.indexOf(followingReceiverId) == -1;
+                    console.log('follerReveiverNotExisted: ', follerReveiverNotExisted);
+                    if (follerReveiverNotExisted) {
+                        // update follower's followingsList
+                        user.followingsList.push(followingReceiverId);
+                        // save the follower with a updated followingsList
+                        user.save((err, follower) => {
+                            if (err || !follower) return cb(err)
+                                // successfully save the follower with a updated followingsList
+                                //   console.log('follower with a updated followingsList: ', follower)
+                            var resData = {
+                                eventType: 'follow',
+                                followingReceiver: updatedfollowingReceiver,
+                                follower: follower
+                            }
+                            console.log('following event participants: ', resData);
+                            cb(null, resData)
+                        })
+                    }
+                })
+            })
+        } else if (user.followersList.indexOf(followerId) !== -1) {
+            // the folower must already exist
+            var unfollowerId = data.currentUser
+            var unfollowingReceiverId = data.followTarget
+            console.log('Trigger unfollowing event!')
             var index = user.followersList.indexOf(unfollowerId)
             user.followersList.splice(index, 1)
             user.save((err, user) => {
                 if (err) return cb(err)
-                console.log('unfollowingReceiver with a updated followersList: ', user);
+                    // console.log('unfollowingReceiver with a updated followersList: ', user);
                 var updatedunfollowingReceiver = user;
                 this.findOne({
                     _id: unfollowerId
                 }, (err, user) => {
                     if (err || !user) return cb(err)
-                    console.log('unfollower before unfollowing: ', user);
+                        // console.log('unfollower before unfollowing: ', user);
                     var unfollerReveiverNotExisted = user.followingsList.indexOf(unfollowingReceiverId) !== -1;
-                    if(unfollerReveiverNotExisted){
+                    if (unfollerReveiverNotExisted) {
                         var index = user.followingsList.indexOf(unfollowingReceiverId);
                         user.followingsList.splice(index, 1);
                         user.save((err, unfollower) => {
-                           if (err) return cb(err)
-                           console.log('USER with one less following: ', unfollower);
-                           var resData = {
-                               eventType: 'unfollow',
-                               unfollowingReceiver: updatedunfollowingReceiver,
-                               unfollower: unfollower
-                           }
-                           console.log('unfollowing event participants: ', resData);
-                           cb(null, resData)
-                       })
-                   }
+                            if (err) return cb(err)
+                                //    console.log('USER with one less following: ', unfollower);
+                            var resData = {
+                                eventType: 'unfollow',
+                                unfollowingReceiver: updatedunfollowingReceiver,
+                                unfollower: unfollower
+                            }
+                            console.log('unfollowing event participants: ', resData);
+                            cb(null, resData)
+                        })
+                    }
                 })
-           });
+            });
         }
     })
 };

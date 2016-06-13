@@ -183,25 +183,29 @@ function profileSettingCtrl($scope, $http, $stateParams, Account, $state, $windo
 
 }
 
-function ppageCtrl($scope, $state, $rootScope, $stateParams, Project, Account) {
-    console.log('ppageCtrl loaded');
-    $scope.state = {};
-    $scope.state.isTheUser = false;
+function ppageCtrl($scope, $state, $rootScope, $stateParams, Project, Account, $timeout) {
+    console.log('ppageCtrl loaded')
+    $scope.state = {}
+    $scope.state.isTheUser = false
+    $scope.followStatus = false
+    var displayUser;
     var uriUserId = $stateParams.userId;
     if (uriUserId == $scope.currentUser._id) {
         $scope.state.isTheUser = true;
     }
     if ($scope.state.isTheUser) {
-        console.log('isTheUser');
+        console.log('isTheUser')
     } else {
-        console.log('is not TheUser');
+        console.log('is not TheUser')
     }
-
     Account.getUserData(uriUserId).then(res => {
-        // console.log('projects: ', res.data);
-        $scope.user = res.data;
+        $scope.user = res.data
+        displayUser = res.data
         $scope.projects = res.data.projects.reverse();
         console.log('cards here: ', res.data.projects);
+        $timeout(function(){
+            checkFollowStatus()
+        },0)
         if (res.data) {
             $scope.starred = () => {
                 var starredResult = 0;
@@ -220,24 +224,52 @@ function ppageCtrl($scope, $state, $rootScope, $stateParams, Project, Account) {
     }
 
     $scope.follow = (currentUser, followTarget) => {
-        console.log('followEvent triggered');
-        console.log('currentUser: ', currentUser);
-        console.log('followTarget: ', followTarget);
-        if(currentUser !== followTarget){
-            console.log('fire the event!');
+        console.log(currentUser, followTarget);
+        if (currentUser !== followTarget && followTarget == uriUserId) {
+            console.log('followEvent triggered')
             Account.follow(currentUser, followTarget).then(res => {
-                if(res.data.eventType == 'follow'){
-                    console.log('res from behavior of follwing: ', res.data);
-                }else if(res.data.eventType == 'unfollow'){
-                    console.log('res from behavior of unfollwing: ', res.data);
+                console.log('res: ', res);
+                if (res.data.eventType == 'follow') {
+                    console.log('check');
+                    console.log('follwing: res, ', res.data)
+                    var follower = res.data.follower
+                    var followingReceiver = res.data.followingReceiver
+                    $scope.user.followersList.push(follower)
+                    checkFollowStatus()
+                } else if (res.data.eventType == 'unfollow') {
+                    console.log('check');
+                    console.log('unfollwing: res, ', res.data)
+                    var unfollower = res.data.unfollower
+                    var unfollowingReceiver = res.data.unfollowingReceiver
+                    var index = $scope.user.followersList.indexOf(follower)
+                    $scope.user.followersList.splice(index, 1)
+                    checkFollowStatus()
                 }
             }, err => {
-                console.log('err: ', err);
-                // console.log('err when ', currentUser, ' follow ', followTarget);
+                console.log('err when follow/unfollow: ', err)
             })
         }
     }
-
+    var checkFollowStatus = () => {
+        console.log('checkFollowStatus trigerred');
+        console.log('displayUser: ', displayUser);
+        if (displayUser.followersList.length > 0) {
+            var followersList = displayUser.followersList
+            console.log('checked');
+            for (var follower in followersList) {
+                console.log('currentUser: ', $scope.currentUser._id);
+                console.log('followersList[follower]._id: ', followersList[follower]._id);
+                if (followersList[follower]._id == $scope.currentUser._id) {
+                    $scope.followStatus = true
+                } else {
+                    $scope.followStatus = false
+                }
+            }
+        } else {
+            $scope.followStatus = false
+        }
+    }
+    // checkFollowStatus()
 }
 
 function navCtrl($http, $scope, $auth, Account, $rootScope, $timeout, $window, $state, focus, Project) {

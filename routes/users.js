@@ -30,7 +30,7 @@ router.get('/:userId', (req, res) => {
     // console.log('req.user:', req.user);
     User.findById(req.params.userId, (err, user) => {
         res.status(err ? 400 : 200).send(err || user);
-    }).populate('projects followers followings');
+    }).populate('projects followersList followingsList');
 })
 router.put('/:userId', User.authMiddleware, (req, res) => {
         if (req.user._id == req.body._id) {
