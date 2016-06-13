@@ -2,6 +2,14 @@
 
 $(document).ready(init);
 
-function init(){
-    // console.log('fired from jQeury');
+function init() {
+    w3IncludeHTML()
+    sticky()
+}
+
+
+function sticky() {
+    $(".sticky").sticky({
+        topSpacing: 60
+    })
 }

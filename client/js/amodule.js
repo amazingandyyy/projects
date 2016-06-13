@@ -18,6 +18,10 @@ angular
     $stateProvider
         .state(home)
         .state(ppage)
+        // .state(ppagewithprojects)
+        .state(ppage_projects)
+        .state(ppage_starred)
+        .state(ppage_followers)
         .state(project)
         .state(projectDetails)
         .state(projectSetting)
@@ -31,6 +35,7 @@ angular
         .state(profileSetting_privacy)
         .state(profileSetting_danger)
 
+
     $urlRouterProvider.otherwise('/');
 });
 
@@ -43,17 +48,55 @@ let home = {
             templateUrl: '/html/home.html',
             controller: 'homeCtrl'
         }
-    },
+    }
 }
 let ppage = {
     name: 'ppage',
     url: '/:userId',
     views: {
-        main: {
+        'main': {
             templateUrl: '/html/ppage.html',
             controller: 'ppageCtrl'
+        },
+        'right_section': {
+            templateUrl: '/html/ppage_projects.html',
+            controller: 'ppageCtrl'
         }
-    },
+    }
+}
+
+let ppage_projects = {
+    name: 'ppage_projects',
+    url: '/projects',
+    parent: 'ppage',
+    views: {
+        right_section: {
+            templateUrl: '/html/ppage_projects.html',
+            controller: 'ppageCtrl'
+        }
+    }
+}
+let ppage_starred = {
+    name: 'ppage_starred',
+    url: '/starred',
+    parent: 'ppage',
+    views: {
+        right_section: {
+            templateUrl: '/html/ppage_starred.html',
+            controller: 'ppageCtrl'
+        }
+    }
+}
+let ppage_followers = {
+    name: 'ppage_followers',
+    url: '/followers',
+    parent: 'ppage',
+    views: {
+        right_section: {
+            templateUrl: '/html/ppage_followers.html',
+            controller: 'ppageCtrl'
+        }
+    }
 }
 let project = {
     name: 'project',
@@ -63,7 +106,7 @@ let project = {
             templateUrl: '/html/project.html',
             controller: 'projectCtrl'
         }
-    },
+    }
 }
 let projectDetails = {
     name: 'projectDetails',
@@ -73,7 +116,7 @@ let projectDetails = {
             templateUrl: '/html/projectDetails.html',
             controller: 'projectDetailsCtrl'
         }
-    },
+    }
 }
 let projectSetting = {
     name: 'projectSetting',
@@ -83,7 +126,7 @@ let projectSetting = {
             templateUrl: '/html/projectSetting.html',
             controller: 'projectSettingCtrl'
         }
-    },
+    }
 }
 let projectSetting_general = {
     name: 'projectSetting_general',
@@ -94,7 +137,7 @@ let projectSetting_general = {
             templateUrl: '/html/projectSetting_general.html',
             controller: 'projectSettingCtrl'
         }
-    },
+    }
 }
 let projectSetting_request = {
     name: 'projectSetting_request',
@@ -105,7 +148,7 @@ let projectSetting_request = {
             templateUrl: '/html/projectSetting_request.html',
             controller: 'projectSettingCtrl'
         }
-    },
+    }
 }
 let projectSetting_privacy = {
     name: 'projectSetting_privacy',
@@ -116,7 +159,7 @@ let projectSetting_privacy = {
             templateUrl: '/html/projectSetting_privacy.html',
             controller: 'projectSettingCtrl'
         }
-    },
+    }
 }
 let projectSetting_danger = {
     name: 'projectSetting_danger',
@@ -127,7 +170,7 @@ let projectSetting_danger = {
             templateUrl: '/html/projectSetting_danger.html',
             controller: 'projectSettingCtrl'
         }
-    },
+    }
 }
 let profileSetting = {
     name: 'profileSetting',
@@ -137,7 +180,7 @@ let profileSetting = {
             templateUrl: '/html/profileSetting.html',
             controller: 'profileSettingCtrl'
         }
-    },
+    }
 }
 let profileSetting_general = {
     name: 'profileSetting_general',
@@ -148,7 +191,7 @@ let profileSetting_general = {
             templateUrl: '/html/profileSetting_general.html',
             controller: 'profileSettingCtrl'
         }
-    },
+    }
 }
 let profileSetting_request = {
     name: 'profileSetting_request',
@@ -159,7 +202,7 @@ let profileSetting_request = {
             templateUrl: '/html/profileSetting_request.html',
             controller: 'profileSettingCtrl'
         }
-    },
+    }
 }
 let profileSetting_privacy = {
     name: 'profileSetting_privacy',
@@ -170,7 +213,7 @@ let profileSetting_privacy = {
             templateUrl: '/html/profileSetting_privacy.html',
             controller: 'profileSettingCtrl'
         }
-    },
+    }
 }
 let profileSetting_danger = {
         name: 'profileSetting_danger',
@@ -181,5 +224,5 @@ let profileSetting_danger = {
                 templateUrl: '/html/profileSetting_danger.html',
                 controller: 'profileSettingCtrl'
             }
-        },
+        }
     }

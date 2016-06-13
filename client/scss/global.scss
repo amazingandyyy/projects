@@ -17,8 +17,8 @@ body {
     }
     .btn-single {
         padding: 0.25rem 0.55rem;
-        margin-right: 0.3rem;
-        margin-left: 0.3rem;
+        margin-right: 4px;
+        margin-left: 4px;
     }
     .hover-mover-right {
         position: relative;
@@ -107,5 +107,8 @@ body {
     }
     .nice-br {
         margin-top: 8px;
+    }
+    .col-less-padding {
+        padding: 5px !important;
     }
 }

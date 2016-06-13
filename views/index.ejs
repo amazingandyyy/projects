@@ -30,6 +30,8 @@
     <script src="/bower_components/ng-file-upload/ng-file-upload-shim.min.js"></script>
     <script src="/bower_components/ng-file-upload/ng-file-upload-all.min.js"></script>
     <script src="/bower_components/ng-img-crop/compile/minified/ng-img-crop.js"></script>
+    <script src="/assets/sticky/jquery.sticky.js"></script>
+    <script src="http://www.w3schools.com/lib/w3data.js"></script>
 
     <script src='/js/bundle.min.js'></script>
 
@@ -40,12 +42,6 @@
     <!-- Navbar -->
     <nav class="navbar navbar-primary navbar-full navbar-fixed-top bg-fade" style="background-color: rgb(250, 250, 250);">
         <a class="navbar-brand text-deepg pull-xs-left" href="#"><span class="logo-outline"><span class="hidden-sm-down">amazing</span></span>&nbsp; projects</a>
-
-        <!-- <ul class="nav navbar-nav">
-            <li class="nav-item">
-                <input type="text" class="form-control form-control-sm search" placeholder="search" />
-            </li>
-        </ul> -->
         <button ng-class="!isAuthenticated() ? 'default' :'' " ng-if="!isAuthenticated()" type="button" class="animated btn btn-primary btn-sm login pull-xs-right" ng-click="authenticate('facebook')">
             <span ng-if="!loginloading && !logoutloading">Log In</span>
             <span class="loader" ng-show="loginloading || logoutloading">
@@ -61,12 +57,17 @@
                     {{currentUser.displayName}}
                 </div>
                 <div class="dropdown-divider"></div>
-                <button ui-sref="ppage({userId: currentUser._id})" class="dropdown-item" type="button">Personal page</button>
+                <button ng-click="goppage()" class="dropdown-item" type="button">Personal page</button>
                 <button ui-sref="profileSetting({userId: currentUser._id})" class="dropdown-item" type="button">Profile setting</button>
                 <div class="dropdown-divider"></div>
                 <button class="dropdown-item" type="button" ng-click="logout()">Sign out</button>
             </div>
         </div>
+        <!-- <div ng-class="isAuthenticated() ? 'fadeIn' :'' " class="tool-tip animated dropdown pull-xs-right" ng-if="isAuthenticated()">
+            <div ui-sref="ppage({userId: currentUser._id})" class="btn btn-sm btn-primary pull-xs-right login btn-single" type="button">
+                <i class="fa fa-th" aria-hidden="true"></i>
+            </div>
+        </div> -->
         <div  target="_top" data-placement="left" title="create a new project" tool-tip ng-class="isAuthenticated() ? 'fadeIn' :'' " class="tool-tip animated dropdown pull-xs-right" ng-if="isAuthenticated()">
             <div ng-click="create();" class="btn btn-sm btn-primary pull-xs-right login btn-single" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <i class="fa fa-plus" aria-hidden="true"></i>

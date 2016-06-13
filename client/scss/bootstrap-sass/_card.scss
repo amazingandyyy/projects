@@ -241,6 +241,8 @@
     .card-columns {
         column-count: 3;
         column-gap: 1.25rem;
+        padding-left: 15px;
+        padding-right: 15px;
         .card {
             display: inline-block;
             width: 100%; // Don't let them exceed the column width

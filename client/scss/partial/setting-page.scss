@@ -16,17 +16,16 @@
         min-width: 190px;
         .nav {
             text-align: right;
-
             .settingLog p {
                 text-align: right;
                 font-size: 0.6;
                 font-size: 900;
                 color: rgba($brand-deepg, 0.3);
-                padding: 0px 20px;
+                padding: 0 20px;
                 cursor: default;
             }
-            .nav-item-first{
-                box-shadow: 0px -1px 0px 0px #ddd;
+            .nav-item-first {
+                box-shadow: 0 -1px 0 0 #ddd;
             }
             .nav-item {
                 cursor: pointer;
@@ -56,7 +55,6 @@
     }
     .right-section {
         padding: 50px 10px;
-
         h5.setting-head {
             font-weight: 900;
             font-size: 0.8;
@@ -163,7 +161,7 @@
         .custom-checkbox-danger-lg.active {
             background: darken($brand-danger, 0%);
             border: 1px solid rgba(darken($brand-danger, 0%), 1);
-            box-shadow: 0px 0px 0px -1px white;
+            box-shadow: 0 0 0 -1px white;
             i {
                 color: white;
                 opacity: 1;
@@ -173,7 +171,7 @@
             opacity: 0.7;
         }
         h4.active {
-            opacity:1;
+            opacity: 1;
         }
         .settingProfilePhoto {
             position: relative;
@@ -186,7 +184,7 @@
             .loadingIcon {
                 position: absolute;
                 top: 42%;
-                left:40%;
+                left: 40%;
                 opacity: 0;
             }
             .loadingIcon.loading {
@@ -203,7 +201,13 @@
     .form-control:focus {
         background: rgba($brand-deepg, 0);
     }
-    .form-control-dange:focus{
+    .form-control-dange:focus {
         border: 1px solid $brand-danger;
+    }
+    .setting-preview h5.setting-head {
+        font-size: 0.7em;
+        opacity: 0.5;
+        text-transform: uppercase;
+        font-weight: 900;
     }
 }

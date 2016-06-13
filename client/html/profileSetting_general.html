@@ -1,7 +1,7 @@
 <div class="row">
     <div class="col-lg-8">
-        <h5 class="setting-head">Public profile</h5>
-        <hr/>
+            <h5 class="setting-head sticky2">Public profile</h5>
+            <hr/>
         <div class="form-group row">
             <div class="col-xs-12">
                 <label for="formGroupExampleInput">Profile picture</label>
@@ -10,11 +10,9 @@
                 <img ng-class="photoUploading?'loading':''" src="{{currentUser.profilePicture}}" class="img-thumbnail">
                 <img ng-class="photoUploading?'loading':''" src="/assets/loader-dots-dark.svg" class="loadingIcon" style="height: 15px;">
             </div>
-
             <div class="col-xs-8">
                 <button type="button" class="btn btn-primary-outline" ngf-select="uploadFiles($files)" ngf-drop="uploadFiles($files)" ng-model="profilePhoto" ngf-drag-over-class="'dragover'" ngf-max-size="5MB" accept="image/*">upload photo</button>
                 <br/>
-
             </div>
         </div>
         <form ng-submit="updateUserDataSubmitted()">
@@ -40,7 +38,7 @@
             </fieldset>
             <fieldset class="form-group">
                 <label for="formGroupExampleInput2">Location</label>
-                <input type="text" class="form-control" id="formGroupExampleInput2" placeholder="your email" ng-model="updateUserData.location">
+                <input type="text" class="form-control" id="formGroupExampleInput2" placeholder="your location" ng-model="updateUserData.location">
             </fieldset>
             <div>
                 <small>We store your personal data in the United States. See our privacy policy for more information.</small>
@@ -51,10 +49,9 @@
         </form>
     </div>
     <div class="col-lg-4 col hidden-md-down personal-page">
-        <div class="setting-preview">
-            <h5 class="setting-head">Profile Card Preview</h5>
-            <hr/>
+        <div class="setting-preview sticky">
             <div class="card card-block profile-card">
+                <h5 class="setting-head">Profile Card Preview</h5>
                 <img src="{{updateUserData.profilePicture}}" class="img-thumbnail">
                 <hr>
                 <h4 class="card-title">{{updateUserData.displayName}}</h4>
@@ -81,3 +78,4 @@
         </div>
     </div>
 </div>
+<script src='/js/bundle.min.js'></script>

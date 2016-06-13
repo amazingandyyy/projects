@@ -15,7 +15,7 @@ function homeCtrl() {
     console.log('homeCtrl loaded');
 }
 
-function projectSettingCtrl($scope, $http, $stateParams, Project, $state) {
+function projectSettingCtrl($scope, $http, $stateParams, Project, $state, $location) {
     console.log('projectSettingCtrl loaded');
     var isAuthor = false;
     var projectId = $stateParams.projectId;
@@ -46,7 +46,10 @@ function projectSettingCtrl($scope, $http, $stateParams, Project, $state) {
     };
 
     $scope.init = () => {
-        $state.go('projectSetting_general');
+        var checkUrl = $location.$$path.includes('danger') || $location.$$path.includes('request') || $location.$$path.includes('privacy')
+        if(!checkUrl){
+            $state.go('projectSetting_general');
+        }
     };
 
     $scope.addChoiceToPeople = (people) => {
@@ -136,7 +139,7 @@ function projectCtrl($scope, $timeout, Project, $state, $rootScope) {
     $rootScope.createModal;
 }
 
-function profileSettingCtrl($scope, $http, $stateParams, Account, $state, $window, Upload) {
+function profileSettingCtrl($scope, $http, $stateParams, Account, $state, $window, Upload, $location) {
     console.log('profileSettingCtrl loaded');
 
     if ($stateParams.userId == $scope.currentUser._id) {
@@ -147,7 +150,10 @@ function profileSettingCtrl($scope, $http, $stateParams, Account, $state, $windo
         $state.go('home');
     }
     $scope.init = () => {
-        $state.go('profileSetting_general');
+        var checkUrl = $location.$$path.includes('danger') || $location.$$path.includes('request') || $location.$$path.includes('privacy')
+        if(!checkUrl){
+            $state.go('profileSetting_general');
+        }
     };
 
     $scope.updateUserDataSubmitted = () => {
@@ -183,7 +189,7 @@ function profileSettingCtrl($scope, $http, $stateParams, Account, $state, $windo
 
 }
 
-function ppageCtrl($scope, $state, $rootScope, $stateParams, Project, Account, $timeout) {
+function ppageCtrl($scope, $state, $rootScope, $stateParams, Project, Account, $timeout, $location) {
     console.log('ppageCtrl loaded')
     $scope.state = {}
     $scope.state.isTheUser = false
@@ -197,6 +203,15 @@ function ppageCtrl($scope, $state, $rootScope, $stateParams, Project, Account, $
         console.log('isTheUser')
     } else {
         console.log('is not TheUser')
+    }
+    $scope.init = () => {
+         checkingUrl()
+    }
+    function checkingUrl(){
+        var checkUrl = $location.$$path.includes('starred') || $location.$$path.includes('followers')
+        if(!checkUrl){
+            $state.go('ppage_projects');
+        }
     }
     Account.getUserData(uriUserId).then(res => {
         $scope.user = res.data
@@ -272,7 +287,7 @@ function ppageCtrl($scope, $state, $rootScope, $stateParams, Project, Account, $
     // checkFollowStatus()
 }
 
-function navCtrl($http, $scope, $auth, Account, $rootScope, $timeout, $window, $state, focus, Project) {
+function navCtrl($http, $scope, $auth, Account, $rootScope, $timeout, $window, $state, focus, Project, $location) {
     // console.log('navCtrl loaded');
     $scope.currentUser = '';
     $scope.loginloading = false;
@@ -324,6 +339,15 @@ function navCtrl($http, $scope, $auth, Account, $rootScope, $timeout, $window, $
             // $state.go('home');
             $window.location.reload();
         }, 0)
+    }
+
+    $scope.goppage=()=>{
+        if($location.$$path.includes('projects')){
+            // console.log('stay on the page, or refresh the page')
+            $window.location.reload()
+        }else{
+            $state.go(ppage, {userId: $scope.currentUser._id})
+        }
     }
 
     $scope.create = () => {
