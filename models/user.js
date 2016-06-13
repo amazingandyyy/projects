@@ -60,6 +60,10 @@ var userSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User'
     }],
+    liked: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Project'
+    }],
     history: []
 });
 

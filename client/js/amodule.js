@@ -18,12 +18,10 @@ angular
     $stateProvider
         .state(home)
         .state(ppage)
-        // .state(ppagewithprojects)
         .state(ppage_projects)
-        .state(ppage_starred)
+        .state(ppage_liked)
         .state(ppage_followers)
-        .state(project)
-        .state(projectDetails)
+        .state(projectpage)
         .state(projectSetting)
         .state(projectSetting_general)
         .state(projectSetting_request)
@@ -52,7 +50,7 @@ let home = {
 }
 let ppage = {
     name: 'ppage',
-    url: '/:userId',
+    url: '/m/:userId',
     views: {
         'main': {
             templateUrl: '/html/ppage.html',
@@ -76,13 +74,13 @@ let ppage_projects = {
         }
     }
 }
-let ppage_starred = {
-    name: 'ppage_starred',
-    url: '/starred',
+let ppage_liked = {
+    name: 'ppage_liked',
+    url: '/liked',
     parent: 'ppage',
     views: {
         right_section: {
-            templateUrl: '/html/ppage_starred.html',
+            templateUrl: '/html/ppage_liked.html',
             controller: 'ppageCtrl'
         }
     }
@@ -98,23 +96,13 @@ let ppage_followers = {
         }
     }
 }
-let project = {
-    name: 'project',
-    url: '/project',
+let projectpage = {
+    name: 'projectpage',
+    url: '/:projectId',
     views: {
         main: {
-            templateUrl: '/html/project.html',
-            controller: 'projectCtrl'
-        }
-    }
-}
-let projectDetails = {
-    name: 'projectDetails',
-    url: '/project/:projectId',
-    views: {
-        main: {
-            templateUrl: '/html/projectDetails.html',
-            controller: 'projectDetailsCtrl'
+            templateUrl: '/html/projectpage.html',
+            controller: 'projectpageCtrl'
         }
     }
 }

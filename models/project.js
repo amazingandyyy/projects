@@ -7,6 +7,10 @@ var projestSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    logo: {
+        type: String,
+        default: 'https://scontent-sjc2-1.xx.fbcdn.net/v/t1.0-9/13413712_103705896723872_7894474241164931793_n.jpg?oh=2ce21391abbc9fb3b29f2f2d83e630ba&oe=580C64B6'
+    },
     pitch:{
         type: String
     },
@@ -31,7 +35,7 @@ var projestSchema = new mongoose.Schema({
     categories: [],
     tags: [],
     technics: [],
-    starred: [{
+    liker: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User'
     }],

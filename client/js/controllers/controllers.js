@@ -5,11 +5,10 @@ angular
     .controller('navCtrl', navCtrl)
     .controller('homeCtrl', homeCtrl)
     .controller('ppageCtrl', ppageCtrl)
-    .controller('projectCtrl', projectCtrl)
     .controller('profileSettingCtrl', profileSettingCtrl)
-    .controller('projectDetailsCtrl', projectDetailsCtrl)
-    .controller('projectDetailsCtrl', projectDetailsCtrl)
+    .controller('projectpageCtrl', projectpageCtrl)
     .controller('projectSettingCtrl', projectSettingCtrl)
+
 
 function homeCtrl() {
     console.log('homeCtrl loaded');
@@ -109,34 +108,26 @@ function projectSettingCtrl($scope, $http, $stateParams, Project, $state, $locat
     }
 }
 
-function projectDetailsCtrl($scope, $http, $stateParams, Project) {
-    console.log('projectDetailsCtrl loaded');
-    var isAuthor = false;
+function projectpageCtrl($scope, $http, $stateParams, Project) {
+    console.log('projectpageCtrl loaded');
+    $scope.state = {}
+    $scope.state.isAuthor = false
     var projectId = $stateParams.projectId;
+    // console.log('projectId: ', projectId);
     Project.getOnePorject(projectId).then(res => {
-        console.log('projects: ', res.data);
-        $scope.project = res.data;
-        console.log('$scope.currentUser._id: ', $scope.currentUser._id);
-        console.log('$scope.project.author: ', $scope.project.author);
-        if ($scope.project.author.indexOf($scope.currentUser._id) !== -1) {
-            isAuthor = true;
-        }
-
-        if (isAuthor) {
-            console.log('isAuthor');
-        } else {
-            console.log('is not Author');
+        console.log('projectData: ', res.data);
+        $scope.project = res.data
+        console.log('$scope.currentUser._id: ', $scope.currentUser._id)
+        console.log('$scope.project.author: ', $scope.project.author)
+        var authors = res.data.author
+        for(var author in authors){
+            if($scope.currentUser._id == authors[author]._id){
+                return $scope.state.isAuthor = true;
+            }
         }
     }, err => {
         console.log('err when get this project: ', err);
     })
-}
-
-
-
-function projectCtrl($scope, $timeout, Project, $state, $rootScope) {
-    console.log('projectCtrl loaded');
-    $rootScope.createModal;
 }
 
 function profileSettingCtrl($scope, $http, $stateParams, Account, $state, $window, Upload, $location) {
@@ -193,7 +184,7 @@ function ppageCtrl($scope, $state, $rootScope, $stateParams, Project, Account, $
     console.log('ppageCtrl loaded')
     $scope.state = {}
     $scope.state.isTheUser = false
-    $scope.followStatus = false
+    $scope.state.followStatus = false
     var displayUser;
     var uriUserId = $stateParams.userId;
     if (uriUserId == $scope.currentUser._id) {
@@ -221,15 +212,6 @@ function ppageCtrl($scope, $state, $rootScope, $stateParams, Project, Account, $
         $timeout(function(){
             checkFollowStatus()
         },0)
-        if (res.data) {
-            $scope.starred = () => {
-                var starredResult = 0;
-                res.data.projects.forEach(project => {
-                    starredResult += project.starred.length;
-                })
-                return starredResult;
-            }
-        }
     }, err => {
         console.log('err when get userData: ', err);
     })
@@ -238,7 +220,7 @@ function ppageCtrl($scope, $state, $rootScope, $stateParams, Project, Account, $
         return moment(createAtTime).fromNow();
     }
 
-    $scope.follow = (currentUser, followTarget) => {
+    $scope.state.follow = (currentUser, followTarget) => {
         console.log(currentUser, followTarget);
         if (currentUser !== followTarget && followTarget == uriUserId) {
             console.log('followEvent triggered')
@@ -275,13 +257,13 @@ function ppageCtrl($scope, $state, $rootScope, $stateParams, Project, Account, $
                 console.log('currentUser: ', $scope.currentUser._id);
                 console.log('followersList[follower]._id: ', followersList[follower]._id);
                 if (followersList[follower]._id == $scope.currentUser._id) {
-                    $scope.followStatus = true
+                    $scope.state.followStatus = true
                 } else {
-                    $scope.followStatus = false
+                    $scope.state.followStatus = false
                 }
             }
         } else {
-            $scope.followStatus = false
+            $scope.state.followStatus = false
         }
     }
     // checkFollowStatus()
