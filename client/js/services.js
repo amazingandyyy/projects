@@ -64,6 +64,22 @@ function Project($http) {
             url: `/api/projects/${projectId}`
         })
     }
+    this.deleteOne = (projectId) => {
+        return $http({
+            method: 'DELETE',
+            url: `/api/projects/${projectId}`
+        })
+    }
+    this.like = (projectId, likerId) => {
+        return $http({
+            method: 'PUT',
+            url: `/api/projects/event/like`,
+            data: {
+                projectId: projectId,
+                likerId: likerId
+            }
+        })
+    }
 }
 
 function focus($rootScope, $timeout) {

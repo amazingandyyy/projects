@@ -14,18 +14,14 @@ router.get('/own', User.authMiddleware, (req, res) => {
     res.send(req.user);
 })
 router.put('/event/follow', User.authMiddleware, (req, res) => {
-    data = {
-        currentUser: req.body.currentUser,
-        followTarget: req.body.followTarget
+    if (req.user._id == req.body.currentUser) {
+        User.eventFollow(req.body, (err, data) => {
+            if (err) return console.log('err: ', err);
+            console.log('data: ', data)
+            res.status(err ? 400 : 200).send(err || data)
+        })
     }
-        if (req.user._id == req.body.currentUser) {
-            User.eventFollow(data, (err, data) => {
-                if (err) return console.log('err: ', err);
-                console.log('data: ', data)
-                res.status(err ? 400 : 200).send(err || data)
-            })
-        }
-    })
+})
 router.get('/:userId', (req, res) => {
     // console.log('req.user:', req.user);
     User.findById(req.params.userId, (err, user) => {
@@ -33,14 +29,14 @@ router.get('/:userId', (req, res) => {
     }).populate('projects followersList followingsList');
 })
 router.put('/:userId', User.authMiddleware, (req, res) => {
-        if (req.user._id == req.body._id) {
-            User.findByIdAndUpdate(req.params.userId, req.body, {
-                new: true
-            }, (err, user) => {
-                console.log('userrr: ', user);
-                res.status(err ? 400 : 200).send(err || user);
-            });
-        }
-    })
+    if (req.user._id == req.body._id) {
+        User.findByIdAndUpdate(req.params.userId, req.body, {
+            new: true
+        }, (err, user) => {
+            console.log('userrr: ', user);
+            res.status(err ? 400 : 200).send(err || user);
+        });
+    }
+})
 
 module.exports = router;

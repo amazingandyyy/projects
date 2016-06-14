@@ -46,7 +46,7 @@ function projectSettingCtrl($scope, $http, $stateParams, Project, $state, $locat
 
     $scope.init = () => {
         var checkUrl = $location.$$path.includes('danger') || $location.$$path.includes('request') || $location.$$path.includes('privacy')
-        if(!checkUrl){
+        if (!checkUrl) {
             $state.go('projectSetting_general');
         }
     };
@@ -120,14 +120,41 @@ function projectpageCtrl($scope, $http, $stateParams, Project) {
         console.log('$scope.currentUser._id: ', $scope.currentUser._id)
         console.log('$scope.project.author: ', $scope.project.author)
         var authors = res.data.author
-        for(var author in authors){
-            if($scope.currentUser._id == authors[author]._id){
+        for (var author in authors) {
+            if ($scope.currentUser._id == authors[author]._id) {
                 return $scope.state.isAuthor = true;
             }
         }
     }, err => {
         console.log('err when get this project: ', err);
     })
+    $scope.like = (likerId, projectId) => {
+        console.log(likerId, 'clicks likeBtn of', projectId);
+        if ($scope.state.isAuthor) {
+            console.log('likeEvent triggered')
+            Project.like(projectId, likerId).then(res => {
+                        console.log('res: ', res);
+                //         if (res.data.eventType == 'follow') {
+                //             console.log('check');
+                //             console.log('follwing: res, ', res.data)
+                //             var follower = res.data.follower
+                //             var followingReceiver = res.data.followingReceiver
+                //             $scope.user.followersList.push(follower)
+                //             checkFollowStatus()
+                //         } else if (res.data.eventType == 'unfollow') {
+                //             console.log('check');
+                //             console.log('unfollwing: res, ', res.data)
+                //             var unfollower = res.data.unfollower
+                //             var unfollowingReceiver = res.data.unfollowingReceiver
+                //             var index = $scope.user.followersList.indexOf(follower)
+                //             $scope.user.followersList.splice(index, 1)
+                //             checkFollowStatus()
+                //         }
+            }, err => {
+                console.log('err when like/unlike: ', err)
+            })
+        }
+    }
 }
 
 function profileSettingCtrl($scope, $http, $stateParams, Account, $state, $window, Upload, $location) {
@@ -142,7 +169,7 @@ function profileSettingCtrl($scope, $http, $stateParams, Account, $state, $windo
     }
     $scope.init = () => {
         var checkUrl = $location.$$path.includes('danger') || $location.$$path.includes('request') || $location.$$path.includes('privacy')
-        if(!checkUrl){
+        if (!checkUrl) {
             $state.go('profileSetting_general');
         }
     };
@@ -196,11 +223,12 @@ function ppageCtrl($scope, $state, $rootScope, $stateParams, Project, Account, $
         console.log('is not TheUser')
     }
     $scope.init = () => {
-         checkingUrl()
+        checkingUrl()
     }
-    function checkingUrl(){
+
+    function checkingUrl() {
         var checkUrl = $location.$$path.includes('starred') || $location.$$path.includes('followers')
-        if(!checkUrl){
+        if (!checkUrl) {
             $state.go('ppage_projects');
         }
     }
@@ -209,9 +237,9 @@ function ppageCtrl($scope, $state, $rootScope, $stateParams, Project, Account, $
         displayUser = res.data
         $scope.projects = res.data.projects.reverse();
         console.log('cards here: ', res.data.projects);
-        $timeout(function(){
+        $timeout(function() {
             checkFollowStatus()
-        },0)
+        }, 0)
     }, err => {
         console.log('err when get userData: ', err);
     })
@@ -220,7 +248,8 @@ function ppageCtrl($scope, $state, $rootScope, $stateParams, Project, Account, $
         return moment(createAtTime).fromNow();
     }
 
-    $scope.state.follow = (currentUser, followTarget) => {
+    $scope.follow = (currentUser, followTarget) => {
+        console.log('ffffff');
         console.log(currentUser, followTarget);
         if (currentUser !== followTarget && followTarget == uriUserId) {
             console.log('followEvent triggered')
@@ -248,25 +277,25 @@ function ppageCtrl($scope, $state, $rootScope, $stateParams, Project, Account, $
         }
     }
     var checkFollowStatus = () => {
-        console.log('checkFollowStatus trigerred');
-        console.log('displayUser: ', displayUser);
-        if (displayUser.followersList.length > 0) {
-            var followersList = displayUser.followersList
-            console.log('checked');
-            for (var follower in followersList) {
-                console.log('currentUser: ', $scope.currentUser._id);
-                console.log('followersList[follower]._id: ', followersList[follower]._id);
-                if (followersList[follower]._id == $scope.currentUser._id) {
-                    $scope.state.followStatus = true
-                } else {
-                    $scope.state.followStatus = false
+            console.log('checkFollowStatus trigerred');
+            console.log('displayUser: ', displayUser);
+            if (displayUser.followersList.length > 0) {
+                var followersList = displayUser.followersList
+                console.log('checked');
+                for (var follower in followersList) {
+                    console.log('currentUser: ', $scope.currentUser._id);
+                    console.log('followersList[follower]._id: ', followersList[follower]._id);
+                    if (followersList[follower]._id == $scope.currentUser._id) {
+                        $scope.state.followStatus = true
+                    } else {
+                        $scope.state.followStatus = false
+                    }
                 }
+            } else {
+                $scope.state.followStatus = false
             }
-        } else {
-            $scope.state.followStatus = false
         }
-    }
-    // checkFollowStatus()
+        // checkFollowStatus()
 }
 
 function navCtrl($http, $scope, $auth, Account, $rootScope, $timeout, $window, $state, focus, Project, $location) {
@@ -323,12 +352,15 @@ function navCtrl($http, $scope, $auth, Account, $rootScope, $timeout, $window, $
         }, 0)
     }
 
-    $scope.goppage=()=>{
-        if($location.$$path.includes('projects')){
+    $scope.goppage = () => {
+        console.log('$location.$$path: ', $location.$$path);
+        if ($location.$$path.includes('projects')) {
             // console.log('stay on the page, or refresh the page')
             $window.location.reload()
-        }else{
-            $state.go(ppage, {userId: $scope.currentUser._id})
+        } else {
+            $state.go('ppage', {
+                userId: $scope.currentUser._id
+            })
         }
     }
 

@@ -60,5 +60,16 @@ router.delete('/:id', (req, res) => {
         res.status(err ? 400 : 200).send(err || project);
     });
 });
+// PUT Event/like
+router.get('/event/like', User.authMiddleware, (req, res) => {
+    console.log('like event date: ', data);
+        // if (req.user._id == req.body.currentUser) {
+        //     User.eventFollow(req.data, (err, data) => {
+        //         if (err) return console.log('err: ', err);
+        //         console.log('data: ', data)
+        //         res.status(err ? 400 : 200).send(err || data)
+        //     })
+        // }
+    })
 
 module.exports = router;
